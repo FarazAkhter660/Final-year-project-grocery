@@ -10,22 +10,28 @@ const ProductAnalysis = () => {
   const [products, setProducts] = useState([]);
   const [hoverData, setHoverData] = useState(null);
 
+  
   const preload = () => {
     getAllProducts().then((data) => {
       if (data.err) {
         console.log(data.err);
       } else {
-        setProducts(data);
+        const filteredProducts = data.filter(
+          (product) =>
+            product.category.name === "vegetables" || product.category.name === "fruits"
+        );
+        setProducts(filteredProducts);
       }
     });
   };
+  
 
   useEffect(() => {
     preload();
   }, []);
 
   // Define a seasonal pattern (example: quarterly seasonality)
-  const seasonalPattern = [1, 1.8, 1.4, 1.2]; // Adjust the values based on your seasonal pattern
+  const seasonalPattern = [1, 1.2, 1.4, 1.2]; // Adjust the values based on your seasonal pattern
 
   // Generate the predicted stock values based on the seasonal pattern
   const predictedStock = products.map((product, index) => {
