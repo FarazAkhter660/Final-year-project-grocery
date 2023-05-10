@@ -120,7 +120,7 @@ const Signin = () => {
 
   return (
     <Base
-      title="Signin"
+      title="Sign in"
       description="Signin to start shopping!"
       className="container"
     >

@@ -49,7 +49,7 @@ const Vieworders = () => {
             return (
               <tr key={index}>
                 <th scope="row" className="text-white bg-dark rounded shadow">
-                    Order id: {order._id}
+                    Order id: cd{order._id}
                 </th>
                 <td className="text-center ">
                     {order.products.map((product,index)=>{
