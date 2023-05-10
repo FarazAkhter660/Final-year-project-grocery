@@ -13,7 +13,7 @@ const Card = ({ product }) => {
         productId={product._id}
         className="rounded card-img-top card-img"
       />
-      <div class="card-body">
+      <div class="card-body card-size" >
         <h5 class="card-title text-capitalize">{product.name}</h5>
         <p class="card-text text-capitalize font-weight-light">
           {product.description}

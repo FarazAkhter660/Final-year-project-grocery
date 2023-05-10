@@ -78,3 +78,8 @@ footer {
   margin: auto auto;
   padding: 1rem;
 }
+
+.card-size{
+  width: 200px;
+  height: 250px;
+}
