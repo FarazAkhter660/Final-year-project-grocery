@@ -31,7 +31,7 @@ const ProductAnalysis = () => {
   }, []);
 
   // Define a seasonal pattern (example: quarterly seasonality)
-  const seasonalPattern = [1, 1.2, 1.4, 1.2]; // Adjust the values based on your seasonal pattern
+  const seasonalPattern = [1, 1.2, 1.4, 1.8 ,2.0,2.2]; // Adjust the values based on your seasonal pattern
 
   // Generate the predicted stock values based on the seasonal pattern
   const predictedStock = products.map((product, index) => {
@@ -67,11 +67,11 @@ const ProductAnalysis = () => {
     <h4 className="text-white"><span className="text-danger">&#x25A0;</span> - Actual Stock</h4>
     <h4 className="text-white"><span className="text-success">&#x25A0;</span> - Predicted Stock</h4>
 
-    <div style={{ display: "flex" }}>
-        <div style={{ flex: 1, marginRight: "20px" }}>
+    <div>
+        <div >
         <XYPlot 
-            height={300} 
-            width={500} 
+            height={600} 
+            width={1000} 
             xType="ordinal" 
             yType="linear"
             style={{ background: "black" }}
@@ -96,10 +96,10 @@ const ProductAnalysis = () => {
             />
         </XYPlot>
         </div>
-        <div style={{ flex: 1 }}>
+        <div className="pt-5" >
         <XYPlot 
-            height={300} 
-            width={500} 
+            height={600} 
+            width={1000} 
             xType="ordinal" 
             yType="linear"
             style={{ background: "black" }}

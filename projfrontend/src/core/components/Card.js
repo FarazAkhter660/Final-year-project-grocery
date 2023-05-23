@@ -13,12 +13,12 @@ const Card = ({ product }) => {
         productId={product._id}
         className="rounded card-img-top card-img"
       />
-      <div class="card-body card-size" >
-        <h5 class="card-title text-capitalize">{product.name}</h5>
+      <div className="card-body card-size" >
+        <h5 className="card-title text-capitalize">{product.name}</h5>
         <p class="card-text text-capitalize font-weight-light">
           {product.description}
         </p>
-        <button href="#" class="btn btn-success" onClick={addToCart}>
+        <button href="#" className="btn btn-success" onClick={addToCart}>
           Add to Cart
         </button>
       </div>

@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
 
 const Vieworders = () => {
   const { user, token } = isAuthenticated();
-  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const preload = () => {
     getAllOrders().then((data) => {
-        console.log(data)
+      console.log(data)
       if (data.err) {
         console.log(data.err);
       } else {
-        setProducts(data);
+        setOrders(data);
       }
     });
   };
@@ -23,52 +23,91 @@ const Vieworders = () => {
     preload();
   }, []);
 
-//   const onClick = (productId) => () => {
-//     deleteProduct(productId, user._id, token)
-//       .then((data) => {
-//         if (data.err) {
-//           console.log(data.err);
-//         } else {
-//           preload();
-//         }
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      undefined,
+      options
+    );
+    return formattedDate;
+  };
+
+  const getDayName = (dateString) => {
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const date = new Date(dateString);
+    const dayIndex = date.getDay();
+    return daysOfWeek[dayIndex];
+  };
+  
+
+  const formatTime = (dateString) => {
+    const options = { hour: "numeric", minute: "numeric" };
+    const formattedTime = new Date(dateString).toLocaleTimeString(
+      undefined,
+      options
+    );
+    return formattedTime;
+  };
 
   return (
     <Base
-      title="Manage Products"
-      description="Welcome to product management section"
+      title="Manage Orders"
+      description="Welcome to the order management section"
       className="container"
     >
       <table className="table table-dark table-borderless table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col-lg">Products</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">Mode</th>
+            <th scope="col">Day of Order</th>
+            <th scope="col">Date of Order</th>
+            <th scope="col">Time of Order</th>
+          </tr>
+        </thead>
         <tbody>
-          {products.map((order, index) => {
+          {orders.map((order, index) => {
             return (
               <tr key={index}>
-                <th scope="row" className="text-white bg-dark rounded shadow">
-                    Order id: cd{order._id}
-                </th>
-                <td className="text-center ">
-                    {order.products.map((product,index)=>{
-                        return(
-                            <div className="text-white bg-dark rounded shadow">
-                            {/* {product.name} */}
-                            <div><b>Name :</b> {product.name}</div>
-                            <div><b>Price :</b>{product.price}</div>
-                            <div><b>Quantity :</b>{product.count}kg</div>
-                            </div>
-                            
-                        )
-                    })}
+                <td className="text-center text-white bg-dark rounded shadow">
+                  Order ID: {order._id}
+                </td>
+                <td className="">
+                  {order.products.map((product, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="text-white bg-dark rounded shadow w-100"
+                      >
+                        <div className="row-cols-lg-2">
+                          <b>Name:</b> {product.name}
+                        </div>
+                        <div>
+                          <b>Price:</b> {product.price}
+                        </div>
+                        <div>
+                          <b>Quantity:</b> {product.count}kg
+                        </div>
+                      </div>
+                    );
+                  })}
                 </td>
                 <td className="text-center text-white bg-dark rounded shadow">
-                    Total Amount: {order.amount}
+                  Total Amount: {order.amount}
                 </td>
                 <td className="text-center text-white bg-dark rounded shadow">
-                    Mode :{order.transaction_id}
+                  Mode: {order.transaction_id}
+                </td>
+                <td className="text-center text-white bg-dark rounded shadow">
+                  {getDayName(order.createdAt)}
+                </td>
+                <td className="text-center text-white bg-dark rounded shadow">
+                  {formatDate(order.createdAt)}
+                </td>
+                <td className="text-center text-white bg-dark rounded shadow">
+                  {formatTime(order.createdAt)}
                 </td>
               </tr>
             );
